@@ -21,5 +21,6 @@ public class JWKdata {
     @Id
     private String id;
     String value;
+    String keysId;
 
 }
