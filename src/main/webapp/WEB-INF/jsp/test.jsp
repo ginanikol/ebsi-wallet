@@ -5,31 +5,66 @@
 </head>
 <body>
 
-<h1>Webpack</h1>
-
-<script src="https://cdn.jsdelivr.net/npm/@cef-ebsi/ebsi-did-resolver@4.0.0-alpha.2/dist/cjs/index.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@cef-ebsi/verifiable-credential@4.5.2/dist/index.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@cef-ebsi/verifiable-presentation@5.4.2/dist/index.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@cef-ebsi/key-did-resolver@2.0.0-alpha.2/dist/cjs/index.min.js"></script>
+<h1>test jsp</h1>
 
 
-<%--<script src="http://localhost:8080/digital-wallet/main.js"></script>--%>
-<%--<script type="module">--%>
+<!-- Add a button to generate a new DID -->
+<button id="generateDIDButton">/generate-did</button>
+<div id="generateResult"></div>
 
-<%--   import { util } from "http://localhost:8080/digital-wallet/main.js";--%>
+<script>
+    document.getElementById("generateDIDButton").addEventListener("click", function() {
+        // Make an HTTP GET request to the /generate-did endpoint
+        fetch('http://localhost:8000/generate-did', {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response
+                document.getElementById("generateResult").innerHTML = "Generated DID: " + data.did;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                document.getElementById("generateResult").innerHTML = "Error generating DID.";
+            });
+    });
+</script>
 
-<%--    const jwk2 = {--%>
-<%--        kty: "EC",--%>
-<%--        crv: "P-256",--%>
-<%--        x: "B0w1caPbDtB8k3aQtt3MZrQt5r1dPZlRb-0gscih-VY",--%>
-<%--        y: "qJmbN7u_iMFp1kV1M8eus-0eK88Wuz-K2OH_a_CoNMY",--%>
-<%--    };--%>
-
-<%--    const did2 = util.createDid(jwk2);--%>
-
-<%--    console.log(did2);--%>
 
 
-<%--</script>--%>
+<button id="createDIDButton">create-did-from-jwk</button>
+<div id="result"></div>
+
+<script>
+    document.getElementById("createDIDButton").addEventListener("click", function() {
+        // Define the JWK object you want to send
+        const jwk = {
+            kty: "EC",
+            crv: "P-256",
+            x: "ngy44T1vxAT6Di4nr-UaM9K3Tlnz9pkoksDokKFkmNc",
+            y: "QCRfOKlSM31GTkb4JHx3nXB4G_jSPMsbdjzlkT_UpPc",
+        };
+
+        // Make an HTTP POST request to the /create-did-from-jwk endpoint
+        console.log(jwk);
+        fetch('http://localhost:8000/create-did-from-jwk', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jwk)
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response
+                document.getElementById("result").innerHTML = "Created DID: " + data.did;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                document.getElementById("result").innerHTML = "Error creating DID.";
+            });
+    });
+</script>
+
 </body>
 </html>

@@ -12,13 +12,14 @@
   "description": "",
   "dependencies": {
     "@cef-ebsi/app-jwt": "^0.0.13",
-    "@cef-ebsi/ebsi-did-resolver": "^4.0.0-alpha.2",
+    "@cef-ebsi/ebsi-did-resolver": "^3.2.0",
     "@cef-ebsi/key-did-resolver": "^2.0.0-alpha.2",
     "@cef-ebsi/oauth2-auth": "^3.0.0-alpha.3",
     "@cef-ebsi/problem-details-errors": "^2.1.2",
     "@cef-ebsi/siop-auth": "^4.0.0-alpha.3",
     "@cef-ebsi/verifiable-credential": "^4.5.2",
     "@cef-ebsi/verifiable-presentation": "^5.4.2",
-    "@cef-ebsi/wallet-lib": "^5.0.0-alpha.3"
+    "@cef-ebsi/wallet-lib": "^5.0.0-alpha.3",
+    "did-resolver": "^4.1.0"
   }
 }

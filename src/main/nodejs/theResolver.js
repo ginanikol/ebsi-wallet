@@ -36,5 +36,5 @@ const jwk2 = {
 const did = util.createDid(jwk);
 const did2 = util.createDid(jwk2);
 
-console.log(did);
-console.log(did2);
+console.log("did1 is " + did);
+console.log("did2 is " + did2);

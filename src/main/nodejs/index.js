@@ -5,10 +5,12 @@ import { getResolver } from "@cef-ebsi/key-did-resolver";
 import { util } from "@cef-ebsi/key-did-resolver";
 import { Resolver } from "did-resolver";
 
+
 async function displayDID() {
-    const publicKey = await generateKeyPair("ES256K");
+    const { publicKey } = await generateKeyPair("ES256K");
     const jwk = await exportJWK(publicKey);
     const did = EbsiWallet.createDid("NATURAL_PERSON", jwk);
+
     const keyResolver = getResolver();
     const didResolver = new Resolver(keyResolver);
 
