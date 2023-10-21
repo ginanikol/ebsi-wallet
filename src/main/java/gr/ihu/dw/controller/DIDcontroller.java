@@ -73,7 +73,7 @@ public class DIDcontroller {
     public String getAllDids(Model model) {
         List<DIDdata> dids = diDdataRepository.findAll();
         model.addAttribute("dids", dids);
-        return "test";
+        return "dids";
     }
 
 

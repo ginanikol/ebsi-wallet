@@ -22,13 +22,6 @@
 <body>
 <h1>DIDs</h1>
 
-<%-- Load the @cef-ebsi/key-did-resolver package's "index.js" from the "dist" directory --%>
-<%--<script src="${pageContext.request.contextPath}/javascript/node_modules/@cef-ebsi/key-did-resolver/dist/index.js"></script>--%>
-
-<%-- Load the did-resolver package's "index.js" from the "dist" directory --%>
-<%--<script src="${pageContext.request.contextPath}/javascript/node_modules/did-resolver/dist/index.js"></script>--%>
-<%--<script src="/webjars/@cef-ebsi/key-did-resolver/1.1.0/dist/index.js"></script>--%>
-<%--<script src="/webjars/did-resolver/4.1.0/dist/index.js"></script>--%>
 <script>
     // Define your resolver code here
     document.addEventListener("DOMContentLoaded", function () {

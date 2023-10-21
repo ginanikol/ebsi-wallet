@@ -7,31 +7,6 @@
 
 <h1>test jsp</h1>
 
-
-<!-- Add a button to generate a new DID -->
-<button id="generateDIDButton">/generate-did</button>
-<div id="generateResult"></div>
-
-<script>
-    document.getElementById("generateDIDButton").addEventListener("click", function() {
-        // Make an HTTP GET request to the /generate-did endpoint
-        fetch('http://localhost:8000/generate-did', {
-            method: 'GET',
-        })
-            .then(response => response.json())
-            .then(data => {
-                // Handle the response
-                document.getElementById("generateResult").innerHTML = "Generated DID: " + data.did;
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                document.getElementById("generateResult").innerHTML = "Error generating DID.";
-            });
-    });
-</script>
-
-
-
 <button id="createDIDButton">create-did-from-jwk</button>
 <div id="result"></div>
 
