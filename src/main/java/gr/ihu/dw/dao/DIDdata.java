@@ -8,6 +8,10 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.FieldType;
+
+import java.time.LocalDateTime;
 
 @Data
 @Getter
@@ -20,7 +24,9 @@ public class DIDdata {
 
     @Id
     private String id;
-
     String value;
+    @Field(targetType = FieldType.DATE_TIME)
+    private LocalDateTime timestamp;
+
 }
 

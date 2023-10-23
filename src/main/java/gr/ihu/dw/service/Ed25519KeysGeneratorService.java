@@ -13,6 +13,7 @@ import java.security.NoSuchProviderException;
 import java.security.Security;
 
 @Service("ed25519KeysGeneratorService")
+@Deprecated(forRemoval = true)
 public class Ed25519KeysGeneratorService implements KeysGeneratorService {
 
     Logger logger = LoggerFactory.getLogger(Ed25519KeysGeneratorService.class);

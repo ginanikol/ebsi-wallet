@@ -9,6 +9,8 @@ import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
 @Data
 @Getter
 @Setter
@@ -16,6 +18,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "Keys")
+@Deprecated(forRemoval = true)
 public class KeyData {
 
     @Id
@@ -23,6 +26,8 @@ public class KeyData {
     String privateKey;
 
     String publicKey;
+
+    private LocalDateTime timestamp;
 
 
 }

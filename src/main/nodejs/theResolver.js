@@ -8,7 +8,7 @@ const didResolver = new Resolver(keyResolver);
 
 didResolver
     .resolve(
-        "did:key:z2dmzD81cgPx8Vki7JbuuMmFYrWPgYoytykUZ3eyqht1j9KbsEYvdrjxMjQ4tpnje9BDBTzuNDP3knn6qLZErzd4bJ5go2CChoPjd5GAH3zpFJP5fuwSk66U5Pq6EhF4nKnHzDnznEP8fX99nZGgwbAh1o7Gj1X52Tdhf7U4KTk66xsA5r"
+        "did:key:z5AZQq7DEXdQHS6FHmeUfspRoZncMJwi2ChvKyNUNiTBJzmoZHptYHsJKjyz2oRgR9tVx16J292D6aoXoaimZvcuLT2YYcJhsmCSwZ9UXtZzr88hKTtJXz1oX69HQbkBUPYB3xqZdVGEyo45ztPun4PcaFLffvg5ZUKsP3zgptWAoTy6jWxp3VhGbfA36AkZiLEe6A48PqV55AecYY6TpWoTD4QdSg4Dwaiwo6U8cjdbSuLGMQL3K2mJV2XSi4S7QtcJoPsxvHEoKisN"
     )
     .then((doc) => console.log(doc));
 
@@ -22,19 +22,19 @@ console.log(doc);
 const jwk = {
     kty: "EC",
     crv: "P-256",
-    x: "ngy44T1vxAT6Di4nr-UaM9K3Tlnz9pkoksDokKFkmNc",
-    y: "QCRfOKlSM31GTkb4JHx3nXB4G_jSPMsbdjzlkT_UpPc",
+    x: "103844653912605496737232059191089405327851447790199748658798573111195341414667",
+    y: "38004373292326482181958585395616043984979484999638695695757834158908448549969",
 };
 
-const jwk2 = {
-    kty: "EC",
-    crv: "P-256",
-    x: "B0w1caPbDtB8k3aQtt3MZrQt5r1dPZlRb-0gscih-VY",
-    y: "qJmbN7u_iMFp1kV1M8eus-0eK88Wuz-K2OH_a_CoNMY",
-};
+// const jwk2 = {
+//     kty: "EC",
+//     crv: "P-256",
+//     x: "B0w1caPbDtB8k3aQtt3MZrQt5r1dPZlRb-0gscih-VY",
+//     y: "qJmbN7u_iMFp1kV1M8eus-0eK88Wuz-K2OH_a_CoNMY",
+// };
 
 const did = util.createDid(jwk);
-const did2 = util.createDid(jwk2);
+// const did2 = util.createDid(jwk2);
 
 console.log("did1 is " + did);
-console.log("did2 is " + did2);
+// console.log("did2 is " + did2);

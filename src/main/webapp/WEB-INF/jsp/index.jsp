@@ -1,84 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            display: flex;
-            height: 100vh; /* 100% of the viewport height */
-        }
-
-        .menu {
-            width: 250px;
-            background: #011120;
-            color: #b2c2bf;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .menu-title {
-            font-size: 30px;
-            margin-bottom: 50px;
-            margin-left: 10px;
-            font-family: 'Tahoma', sans-serif;
-            color: white;
-        }
-
-        .menu-item {
-            cursor: pointer;
-            font-size: 20px;
-            color: #78acc8;
-            margin-bottom: -5px;
-            margin-left: 10px;
-            display: flex;
-            align-items: center;
-            font-family: 'Tahoma', sans-serif;
-            transition: background-color 0.3s;
-            padding: 15px;
-        }
-
-        .menu-item svg {
-            width: 24px;
-            margin-right: 12px;
-        }
-
-        .menu-item.selected,
-        .menu-item:hover {
-            background-color: #1E3948;
-            border-radius: 10px;
-            color: white;
-        }
-
-        .menu-item.menu-logout {
-            position: absolute;
-            bottom: 20px;
-            cursor: pointer;
-            font-size: 24px;
-            margin-left: 25px;
-            display: flex;
-            align-items: center;
-            font-family: 'Tahoma', sans-serif;
-        }
-
-        .menu-item.menu-logout a {
-            text-decoration: none;
-            color: white;
-        }
-
-        .content {
-            flex: 75%;
-            padding: 20px;
-        }
-
-        .hidden {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="css/mainStyle.css">
 </head>
 <body>
 
@@ -140,7 +63,6 @@
 
     <div class="content">
         <div id="keys-content" class="hidden">
-            <jsp:include page="test.jsp"/>
         </div>
         <div id="dids-content" class="hidden">
             Information about the dids. This is the content for the dids.
@@ -168,6 +90,29 @@
 
         const selectedItem = document.getElementById(item + '-item');
         selectedItem.classList.add('selected');
+
+        function showAlert() {
+            alert("Hello");
+        }
+
+        if (item === 'keys') {
+            fetch('keys/all')
+                .then(response => response.text())
+                .then(data => {
+                    // Update the "Keys" content section with the loaded data
+                    document.getElementById('keys-content').innerHTML = data;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        if (item === 'dids') {
+            fetch('dids/all')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('dids-content').innerHTML = data;
+                })
+                .catch(error => console.error('Error:', error));
+        }
     }
 </script>
 

@@ -9,7 +9,9 @@ import java.security.NoSuchAlgorithmException;
 @Service
 public interface KeysGeneratorService {
 
-    public KeyPair generateKeyPair() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException;
-    public String getPrivateKey(KeyPair keyPair) throws Exception;
-    public String getPublicKey(KeyPair keyPair) throws Exception;
+    KeyPair generateKeyPair() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException;
+    @Deprecated
+    String getPrivateKey(KeyPair keyPair) throws Exception;
+    @Deprecated
+    String getPublicKey(KeyPair keyPair) throws Exception;
 }
