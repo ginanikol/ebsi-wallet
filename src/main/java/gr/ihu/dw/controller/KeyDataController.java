@@ -5,8 +5,6 @@ import com.nimbusds.jose.jwk.ECKey;
 import com.nimbusds.jose.jwk.JWK;
 import gr.ihu.dw.dao.JWKdata;
 import gr.ihu.dw.dao.JWkdataRepository;
-import gr.ihu.dw.dao.KeyDataRepository;
-import gr.ihu.dw.dto.Keys;
 import gr.ihu.dw.service.KeysGeneratorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,29 +21,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.security.KeyPair;
 import java.security.interfaces.ECPrivateKey;
 import java.security.interfaces.ECPublicKey;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/keys")
 public class KeyDataController {
 
-    private final KeyDataRepository keyDataRepository;
     private final JWkdataRepository jWkdataRepository;
     private final KeysGeneratorService keysGeneratorService;
     private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
     Logger logger = LoggerFactory.getLogger(KeyDataController.class);
 
     @Autowired
-    public KeyDataController(KeyDataRepository keyDataRepository,
-                             JWkdataRepository jWkdataRepository, @Qualifier("ecKeysGeneratorService") KeysGeneratorService keysGeneratorService) {
-        this.keyDataRepository = keyDataRepository;
+    public KeyDataController(JWkdataRepository jWkdataRepository, @Qualifier("ecKeysGeneratorService") KeysGeneratorService keysGeneratorService) {
         this.jWkdataRepository = jWkdataRepository;
         this.keysGeneratorService = keysGeneratorService;
     }
@@ -53,21 +46,17 @@ public class KeyDataController {
     @GetMapping("/all")
     public String getAllKeys(Model model) {
         List<JWKdata> jwkKeys = jWkdataRepository.findAll();
-        List<Keys> keys = new ArrayList<>();
-        for (JWKdata jwkKey : jwkKeys){
-            Keys key = new Keys();
-            key.setValue(jwkKey.getValue());
-            key.setTimestamp(convertToDateViaInstant(jwkKey.getTimestamp()));
-            keys.add(key);
-        }
-        model.addAttribute("jwks", keys);
+        sortKeysAccordingToCreationTime(jwkKeys);
+        List<String> keysTimestamps = extractTimeStampsAndFormat(jwkKeys);
+        model.addAttribute("jwks", jwkKeys);
+        model.addAttribute("keysTimestamps", keysTimestamps);
         return "allJWKs";
     }
 
     @GetMapping("/create")
     public ResponseEntity<String> createKey() {
 
-        try{
+        try {
             KeyPair keyPair = keysGeneratorService.generateKeyPair();
             JWK jwk = new ECKey.Builder(Curve.P_256, (ECPublicKey) keyPair.getPublic())
                     .privateKey((ECPrivateKey) keyPair.getPrivate())
@@ -80,7 +69,7 @@ public class KeyDataController {
 
             logger.info("key created");
             return ResponseEntity.ok("New key created successfully! " + jwKdata);
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error("Could not create new keys. " + e.getMessage(), e);
             return ResponseEntity.badRequest().body("Failed to create new keys: " + e.getMessage());
         }
@@ -99,23 +88,17 @@ public class KeyDataController {
         }
     }
 
-    Date convertToDateViaInstant(LocalDateTime dateToConvert) {
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String formattedDate = dateToConvert.format(formatter);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        try {
-            return sdf.parse(formattedDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return null; // Handle the exception as needed
-        }
+    private static void sortKeysAccordingToCreationTime(List<JWKdata> jwkKeys) {
+        jwkKeys.sort(Comparator.comparing(JWKdata::getTimestamp));
     }
 
-
-
-
-
-
+    private static List<String> extractTimeStampsAndFormat(List<JWKdata> jwkKeys) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yyyy HH:mm:ss", Locale.ENGLISH);
+        List<String> keysTimestamps = new ArrayList<>();
+        for (int i = 0; i < jwkKeys.size(); i++) {
+            keysTimestamps.add(i, jwkKeys.get(i).getTimestamp().format(formatter));
+        }
+        return keysTimestamps;
+    }
 
 }
