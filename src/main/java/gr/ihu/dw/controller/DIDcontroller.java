@@ -19,18 +19,15 @@ import java.util.List;
 @Controller
 @RequestMapping("/dids")
 public class DIDcontroller {
-    private final KeyDataRepository keyDataRepository;
+
     private final DIDdataRepository diDdataRepository;
     private final DIDservice didService;
-    private KeysGeneratorService keysGeneratorService;
     Logger logger = LoggerFactory.getLogger(DIDcontroller.class);
 
     @Autowired
-    public DIDcontroller(KeyDataRepository keyDataRepository, DIDdataRepository diDdataRepository, DIDservice didService, @Qualifier("ecKeysGeneratorService") KeysGeneratorService keysGeneratorService) {
-        this.keyDataRepository = keyDataRepository;
+    public DIDcontroller(DIDdataRepository diDdataRepository, DIDservice didService) {
         this.diDdataRepository = diDdataRepository;
         this.didService = didService;
-        this.keysGeneratorService = keysGeneratorService;
     }
 
     @GetMapping("/all")
