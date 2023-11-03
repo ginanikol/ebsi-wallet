@@ -94,5 +94,24 @@ html, body {
     background-color: #78acc8;
 }
 
+#createDIDButton {
+    background-color: #1E3948;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    position: absolute;
+    top: 40px; /* Adjust the top position to place it at the top */
+    left: 61%; /* Center the button horizontally */
+    transform: translateX(-50%); /* Center the button horizontally */
+    transition: background-color 0.3s;
+}
+
+#createDIDButton:hover {
+    background-color: #78acc8;
+}
+
 
 

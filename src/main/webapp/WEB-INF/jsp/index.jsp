@@ -74,6 +74,7 @@
         </div>
 
         <button id="createKeyButton" class="hidden">Create a New Key</button>
+        <button id="createDIDButton" class="hidden">Create a DID</button>
 
 
     </div>
@@ -102,6 +103,13 @@
                 createKeyButton.classList.remove('hidden');
             } else {
                 createKeyButton.classList.add('hidden');
+            }
+
+            const createDIDButton = document.getElementById('createDIDButton');
+            if (item === 'dids') {
+                createDIDButton.classList.remove('hidden');
+            } else {
+                createDIDButton.classList.add('hidden');
             }
 
             if (item === 'keys') {
@@ -137,6 +145,26 @@
                                 .then(data => {
                                     // Update the "Keys" content section with the loaded data
                                     document.getElementById('keys-content').innerHTML = data;
+                                })
+                                .catch(error => console.error('Error:', error));
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+
+            document.getElementById("createDIDButton").addEventListener("click", function() {
+                // Make an AJAX request to create a new did
+                fetch('dids/create', {
+                    method: 'GET',
+                })
+                    .then(() => {
+                        // On success, fetch the list of all dids again and update the HTML
+                        if (document.getElementById('dids-item').classList.contains('selected')) {
+                            fetch('dids/all')
+                                .then(response => response.text())
+                                .then(data => {
+                                    // Update the "DIDs" content section with the loaded data
+                                    document.getElementById('dids-content').innerHTML = data;
                                 })
                                 .catch(error => console.error('Error:', error));
                         }
