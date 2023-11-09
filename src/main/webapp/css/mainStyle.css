@@ -113,5 +113,52 @@ html, body {
     background-color: #78acc8;
 }
 
+.resolve-did {
+    text-decoration: none; /* Remove underlines */
+    color: black;
+    font-family: "Courier New", monospace;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    width: 60%;
+    max-width: 600px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Additional styling for the resolved DID content */
+#resolved-did-info {
+    font-family: "Courier New", monospace;
+    white-space: pre-wrap;
+    overflow-x: auto;
+}
+
+
+
+
 
 

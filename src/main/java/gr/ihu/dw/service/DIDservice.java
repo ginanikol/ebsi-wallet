@@ -36,6 +36,35 @@ public class DIDservice {
         return dids;
     }
 
+
+    public void resolveDID(String did) {
+        String url = "http://localhost:8000/resolve-did/" + did;
+
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .GET()
+                .build();
+
+        try {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            int statusCode = response.statusCode();
+            String responseBody = response.body();
+
+            if (statusCode == 200) {
+                System.out.println("HTTP GET request was successful.");
+                System.out.println("Resolved DID Document: " + responseBody);
+            } else {
+                System.err.println("HTTP GET request failed with status code " + statusCode);
+                System.err.println("Response Body: " + responseBody);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public void saveDID() {
         Optional<JWKdata> mostRecentRecord = jWkdataRepository.findFirstByOrderByTimestampDesc();
 

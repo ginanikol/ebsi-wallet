@@ -79,8 +79,16 @@
 
     </div>
 
+    <div id="resolved-did-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <pre id="resolved-did-info"></pre>
+        </div>
+    </div>
 
     <script>
+        let openedDID = null;
+
         function showContent(item) {
             const contentSections = document.querySelectorAll('.content > div');
             contentSections.forEach(function (section) {
@@ -130,7 +138,10 @@
                     })
                     .catch(error => console.error('Error:', error));
             }
+
+
         }
+
 
             document.getElementById("createKeyButton").addEventListener("click", function() {
                 // Make an AJAX request to create a new key
@@ -171,6 +182,38 @@
                     })
                     .catch(error => console.error('Error:', error));
             });
+
+        function openModal(didValue, didInfo) {
+            const modal = document.getElementById('resolved-did-modal');
+            const resolvedDIDInfo = document.getElementById('resolved-did-info');
+
+            // Set the content of the modal
+            resolvedDIDInfo.textContent = JSON.stringify(didInfo, null, 2);
+
+            // Show the modal
+            modal.style.display = 'block';
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            const modal = document.getElementById('resolved-did-modal');
+            modal.style.display = 'none';
+        }
+
+        async function resolveDID(didValue) {
+            try {
+                const response = await fetch('http://localhost:8000/resolve-did/' + didValue);
+                if (response.ok) {
+                    const resolvedDID = await response.json();
+                    openModal(didValue, resolvedDID);
+                } else {
+                    alert('Failed to resolve DID');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
     </script>
 
     </body>

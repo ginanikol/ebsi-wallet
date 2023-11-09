@@ -24,7 +24,6 @@ public class KeyDataController {
         this.jwKdataService = jwKdataService;
     }
 
-
     @GetMapping("/all")
     public String getAllKeys(Model model) {
         KeysDataDTO keysDataDTO = jwKdataService.fetchKeys();
