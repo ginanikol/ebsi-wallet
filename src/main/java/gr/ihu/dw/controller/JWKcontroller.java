@@ -38,6 +38,6 @@ public class JWKcontroller {
     //This is to create DID has to go elsewhere!!!
     @GetMapping("/createDID")
     public void createDIDfromMostRecentJWK(Model model) {
-        didService.saveDID();
+        didService.createDID();
     }
 }

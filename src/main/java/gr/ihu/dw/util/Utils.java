@@ -1,8 +1,12 @@
 package gr.ihu.dw.util;
 
 import java.security.Key;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Utils {
+
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
     public static String convertKeyToHex(Key key) throws Exception {
         byte[] encodedKey = key.getEncoded();
@@ -15,6 +19,10 @@ public class Utils {
             result.append(String.format("%02x", b));
         }
         return result.toString();
+    }
+
+    public static LocalDateTime formatDate(LocalDateTime dateTime) {
+        return LocalDateTime.parse(dateTime.format(formatter));
     }
 
 }

@@ -157,7 +157,13 @@ html, body {
     overflow-x: auto;
 }
 
-
+.vcs-content {
+    background-color: #6fb1bd;
+    padding: 10px;
+    border-radius: 15px;
+    margin-top: 10px;
+    width: 400px;
+}
 
 
 

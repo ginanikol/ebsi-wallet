@@ -13,9 +13,10 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+
+import static gr.ihu.dw.util.Utils.formatDate;
 
 @Service
 public class DIDservice {
@@ -23,7 +24,6 @@ public class DIDservice {
     private final JWkdataRepository jWkdataRepository;
     private final DIDdataRepository diDdataRepository;
     private final Logger logger = LoggerFactory.getLogger(DIDservice.class);
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
     public DIDservice(JWkdataRepository jWkdataRepository, DIDdataRepository diDdataRepository) {
 
@@ -37,35 +37,35 @@ public class DIDservice {
     }
 
 
-    public void resolveDID(String did) {
-        String url = "http://localhost:8000/resolve-did/" + did;
+//    public void resolveDID(String did) {
+//        String url = "http://localhost:8000/resolve-did/" + did;
+//
+//        HttpClient client = HttpClient.newHttpClient();
+//        HttpRequest request = HttpRequest.newBuilder()
+//                .uri(URI.create(url))
+//                .GET()
+//                .build();
+//
+//        try {
+//            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+//
+//            int statusCode = response.statusCode();
+//            String responseBody = response.body();
+//
+//            if (statusCode == 200) {
+//                System.out.println("HTTP GET request was successful.");
+//                System.out.println("Resolved DID Document: " + responseBody);
+//            } else {
+//                System.err.println("HTTP GET request failed with status code " + statusCode);
+//                System.err.println("Response Body: " + responseBody);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .GET()
-                .build();
 
-        try {
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-            int statusCode = response.statusCode();
-            String responseBody = response.body();
-
-            if (statusCode == 200) {
-                System.out.println("HTTP GET request was successful.");
-                System.out.println("Resolved DID Document: " + responseBody);
-            } else {
-                System.err.println("HTTP GET request failed with status code " + statusCode);
-                System.err.println("Response Body: " + responseBody);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public void saveDID() {
+    public void createDID() {
         Optional<JWKdata> mostRecentRecord = jWkdataRepository.findFirstByOrderByTimestampDesc();
 
         if (mostRecentRecord.isPresent()) {
@@ -87,11 +87,11 @@ public class DIDservice {
                 int statusCode = response.statusCode();
                 String responseBody = response.body();
 
-                if (statusCode == 200) {
+                if (statusCode == 200 || statusCode == 201) {
                     System.out.println("HTTP POST request was successful.");
                     System.out.println("Response Body: " + responseBody);
                     logger.info("***Response Body:*** " + responseBody);
-                    saveDIDrecord(responseBody);
+                    saveDID(responseBody);
                 } else {
                     System.err.println("HTTP POST request failed with status code " + statusCode);
                     System.err.println("Response Body: " + responseBody);
@@ -105,11 +105,11 @@ public class DIDservice {
 
     }
 
-    private void saveDIDrecord(String responseBody) {
+    private void saveDID(String responseBody) {
         DIDdata did = new DIDdata();
         String value = processResponse(responseBody);
         did.setValue(value);
-        did.setTimestamp(LocalDateTime.parse(LocalDateTime.now().format(formatter)));
+        did.setTimestamp(formatDate(LocalDateTime.now()));
         diDdataRepository.save(did);
     }
 
