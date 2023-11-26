@@ -1,9 +1,6 @@
 package gr.ihu.dw.dao;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-import jdk.jfr.Label;
 import lombok.*;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.FieldType;
 

@@ -2,6 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="css/mainStyle.css">
+    <title>Wallet</title>
 </head>
 <body>
 
