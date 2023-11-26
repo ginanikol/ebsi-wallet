@@ -8,10 +8,6 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.FieldType;
-
-import java.time.LocalDateTime;
 
 @Data
 @Getter
@@ -24,17 +20,12 @@ public class Vc {
 
     @Id
     private String id;
-    private String type;
-    private String issuer;
-    @Field(targetType = FieldType.DATE_TIME)
-    private LocalDateTime issuanceDate;
-    @Field(targetType = FieldType.DATE_TIME)
-    private LocalDateTime validFrom;
-    @Field(targetType = FieldType.DATE_TIME)
-    private LocalDateTime expirationDate;
-    @Field(targetType = FieldType.DATE_TIME)
-    private LocalDateTime issued;
-    private String credentialSubject;
-    private String credentialSchema;
+    private String jti;
+    private String sub;
+    private String iss;
+    private Long nbf;
+    private Long exp;
+    private Long iat;
+    private String base64QRCode;
+    private VerifiableCredential vc;
 }
-

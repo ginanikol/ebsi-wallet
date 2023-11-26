@@ -162,8 +162,36 @@ html, body {
     padding: 10px;
     border-radius: 15px;
     margin-top: 10px;
-    width: 400px;
+    display: grid;
+    grid-template-columns: 1fr auto; /* Adjust column widths as needed */
+    align-items: center; /* Align items vertically */
+    grid-gap: 10px; /* Add or adjust gap between items */
 }
+
+.vc-data {
+    /* No specific styles needed for .vc-data */
+}
+
+.qr-code {
+    text-align: right;
+}
+
+.vc-values{
+    color: #003333;
+    width: 900px;
+    word-wrap: break-word;
+    display: inline-block;
+}
+
+.vc-label{
+    color: #011120;
+    font-weight: bolder;
+}
+
+.vc-data p {
+    margin: 5px 0;
+}
+
 
 
 

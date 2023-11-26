@@ -4,13 +4,11 @@ import gr.ihu.dw.dao.DIDdata;
 import gr.ihu.dw.dao.Vc;
 import gr.ihu.dw.service.DIDservice;
 import gr.ihu.dw.service.VcService;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,25 +28,25 @@ public class VcsController {
     public String getAllVcs(Model model) {
         List<Vc> vcs = vcService.fetchVcs();
         List<DIDdata> dids = didService.fetchDIDs();
+
         model.addAttribute("vcs", vcs);
         model.addAttribute("dids", dids);
         return "vcs";
     }
 
-//    @GetMapping("/allJson")
-//    @ResponseBody
-//    public ResponseEntity<List<DIDdata>> getAllDidsJson() {
-//        List<DIDdata> dids = didService.fetchDIDs();
-//        return ResponseEntity.ok(dids);
+//    @GetMapping("/create")
+//    public ResponseEntity<String> createVc() {
+//        try {
+//            vcService.createVc();
+//            return ResponseEntity.ok("New VC created successfully! ");
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body("Failed to create new VC: " + e.getMessage());
+//        }
 //    }
 
-    @GetMapping("/create")
-    public ResponseEntity<String> createVc() {
-        try {
-            vcService.createVc();
-            return ResponseEntity.ok("New VC created successfully! ");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Failed to create new VC: " + e.getMessage());
-        }
+    @DeleteMapping("/delete/{id}")
+    public void deleteVc(@PathVariable("id") String id) {
+        vcService.deleteById(id);
     }
+
 }

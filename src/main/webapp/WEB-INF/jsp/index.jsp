@@ -89,6 +89,7 @@
     let didEventListenerAdded = false;
 
     function showContent(item) {
+
         const contentSections = document.querySelectorAll('.content > div');
         contentSections.forEach(function (section) {
             section.classList.add('hidden');
@@ -119,7 +120,6 @@
             createDIDButton.classList.add('hidden');
         }
 
-
         if (item === 'keys') {
             fetch('keys/all')
                 .then(response => response.text())
@@ -147,47 +147,46 @@
                 })
                 .catch(error => console.error('Error:', error));
         }
+
     }
-
-
-    document.getElementById("createKeyButton").addEventListener("click", function() {
-        // Make an AJAX request to create a new key
-        fetch('keys/create', {
-            method: 'GET', // Use GET request
-        })
-            .then(() => {
-                // On success, fetch the list of all keys again and update the HTML
-                if (document.getElementById('keys-item').classList.contains('selected')) {
-                    fetch('keys/all')
-                        .then(response => response.text())
-                        .then(data => {
-                            // Update the "Keys" content section with the loaded data
-                            document.getElementById('keys-content').innerHTML = data;
-                        })
-                        .catch(error => console.error('Error:', error));
-                }
+        document.getElementById("createKeyButton").addEventListener("click", function () {
+            // Make an AJAX request to create a new key
+            fetch('keys/create', {
+                method: 'GET', // Use GET request
             })
-            .catch(error => console.error('Error:', error));
-    });
+                .then(() => {
+                    // On success, fetch the list of all keys again and update the HTML
+                    if (document.getElementById('keys-item').classList.contains('selected')) {
+                        fetch('keys/all')
+                            .then(response => response.text())
+                            .then(data => {
+                                // Update the "Keys" content section with the loaded data
+                                document.getElementById('keys-content').innerHTML = data;
+                            })
+                            .catch(error => console.error('Error:', error));
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
 
-    document.getElementById("createDIDButton").addEventListener("click", function() {
-        // Make an AJAX request to create a new did
-        fetch('dids/create', {
-            method: 'GET',
-        })
-            .then(() => {
-                if (document.getElementById('dids-item').classList.contains('selected')) {
-                    fetch('dids/all')
-                        .then(response => response.text())
-                        .then(data => {
-                            // Update the "DIDs" content section with the loaded data
-                            document.getElementById('dids-content').innerHTML = data;
-                        })
-                        .catch(error => console.error('Error:', error));
-                }
+        document.getElementById("createDIDButton").addEventListener("click", function () {
+            // Make an AJAX request to create a new did
+            fetch('dids/create', {
+                method: 'GET',
             })
-            .catch(error => console.error('Error:', error));
-    });
+                .then(() => {
+                    if (document.getElementById('dids-item').classList.contains('selected')) {
+                        fetch('dids/all')
+                            .then(response => response.text())
+                            .then(data => {
+                                // Update the "DIDs" content section with the loaded data
+                                document.getElementById('dids-content').innerHTML = data;
+                            })
+                            .catch(error => console.error('Error:', error));
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
 
     function openModal(didValue, didInfo) {
         const modal = document.getElementById('resolved-did-modal');
