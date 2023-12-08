@@ -1,7 +1,11 @@
-package gr.ihu.dw.dao;
+package gr.ihu.dw.dto;
 
+import gr.ihu.dw.dao.CredentialSchema;
+import gr.ihu.dw.dao.CredentialSubject;
+import gr.ihu.dw.dao.TermsOfUse;
 import lombok.*;
-import java.util.Date;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -10,17 +14,17 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class VerifiableCredential {
+public class VerifiableCredentialDTO {
+
     private List<String> context;
     private String vcid;
     private List<String> type;
     private String issuer;
-    private Long issuanceDate;
-    private Long validFrom;
-    private Long issued;
+    private LocalDateTime issuanceDate;
+    private LocalDateTime validFrom;
+    private LocalDateTime issued;
     private CredentialSubject credentialSubject;
     private CredentialSchema credentialSchema;
-    private Long expirationDate;
+    private LocalDateTime expirationDate;
     private TermsOfUse termsOfUse;
-
 }

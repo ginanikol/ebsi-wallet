@@ -17,7 +17,7 @@
                 <p><span class="vc-label"> Subject :</span> <span class="vc-values"> ${vc.sub}</span></p>
                 <p><span class="vc-label"> VC Issuer :</span>  <span class="vc-values"> ${vc.vc.issuer}</span></p>
                 <p><span class="vc-label">Issuance date :</span><span class="vc-values">  ${vc.iat}</span></p>
-                <p> <span class="vc-label">VC expiration date :</span> <span class="vc-values"> ${vc.vc.expirationDate.time}</span></p>
+                <p> <span class="vc-label">VC expiration date :</span> <span class="vc-values"> ${vc.vc.expirationDate}</span></p>
                 <p> <span class="vc-label">Credential Schema Id: </span> <span class="vc-values"> ${vc.vc.credentialSchema.csid}</span></p>
                 <p> <span class="vc-label">Credential Schema Type: </span> <span class="vc-values"> ${vc.vc.credentialSchema.type}</span></p>
                 <p> <span class="vc-label">Credential Subject Name: </span> <span class="vc-values"> ${vc.vc.credentialSubject.firstName}</span></p>

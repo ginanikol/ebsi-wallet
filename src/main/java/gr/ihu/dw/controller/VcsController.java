@@ -2,6 +2,7 @@ package gr.ihu.dw.controller;
 
 import gr.ihu.dw.dao.DIDdata;
 import gr.ihu.dw.dao.Vc;
+import gr.ihu.dw.dto.VcsDTO;
 import gr.ihu.dw.service.DIDservice;
 import gr.ihu.dw.service.VcService;
 
@@ -26,7 +27,7 @@ public class VcsController {
 
     @GetMapping("/all")
     public String getAllVcs(Model model) {
-        List<Vc> vcs = vcService.fetchVcs();
+        List<VcsDTO> vcs = vcService.fetchVcs();
         List<DIDdata> dids = didService.fetchDIDs();
 
         model.addAttribute("vcs", vcs);
