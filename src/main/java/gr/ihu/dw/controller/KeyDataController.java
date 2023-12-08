@@ -43,19 +43,4 @@ public class KeyDataController {
         }
     }
 
-//    @DeleteMapping("/delete/{id}")
-//    public ResponseEntity<String> deleteKey(@PathVariable("id") String id) {
-//        try {
-//            JWKdata jwKdata = jWkdataRepository.findById(String.valueOf(id)).get();
-//            logger.info("Deleting key with ID {} ", id);
-//            jWkdataRepository.delete(jwKdata);
-//            return ResponseEntity.ok("Key deleted successfully!");
-//        } catch (Exception e) {
-//            logger.error("Could not delete key. " + e.getMessage(), e);
-//            return ResponseEntity.badRequest().body("Failed to delete key: " + e.getMessage());
-//        }
-//    }
-
-
-
 }

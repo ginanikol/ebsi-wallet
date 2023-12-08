@@ -2,7 +2,6 @@ package gr.ihu.dw.controller;
 
 import gr.ihu.dw.dao.DIDdata;
 import gr.ihu.dw.dao.Vc;
-import gr.ihu.dw.dto.VcsDTO;
 import gr.ihu.dw.service.DIDservice;
 import gr.ihu.dw.service.VcService;
 
@@ -27,7 +26,7 @@ public class VcsController {
 
     @GetMapping("/all")
     public String getAllVcs(Model model) {
-        List<VcsDTO> vcs = vcService.fetchVcs();
+        List<Vc> vcs = vcService.fetchVcs();
         List<DIDdata> dids = didService.fetchDIDs();
 
         model.addAttribute("vcs", vcs);
@@ -35,15 +34,6 @@ public class VcsController {
         return "vcs";
     }
 
-//    @GetMapping("/create")
-//    public ResponseEntity<String> createVc() {
-//        try {
-//            vcService.createVc();
-//            return ResponseEntity.ok("New VC created successfully! ");
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest().body("Failed to create new VC: " + e.getMessage());
-//        }
-//    }
 
     @DeleteMapping("/delete/{id}")
     public void deleteVc(@PathVariable("id") String id) {

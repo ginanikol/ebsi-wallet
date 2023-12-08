@@ -2,7 +2,6 @@ package gr.ihu.dw.service;
 
 import gr.ihu.dw.dao.Vc;
 import gr.ihu.dw.dao.VcRepository;
-import gr.ihu.dw.dto.VcsDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,13 +19,9 @@ public class VcService {
         this.vcRepository = vcRepository;
     }
 
-    public List<VcsDTO> fetchVcs() {
+    public List<Vc> fetchVcs() {
         List<Vc> vcs = vcRepository.findAll();
-        List<VcsDTO> vcsDTOS = vcs.stream()
-                .map(VcsDTO::fromVc)
-                .collect(Collectors.toList());
-
-        return vcsDTOS;
+        return vcs;
     }
 
     public void deleteById(String id) {
