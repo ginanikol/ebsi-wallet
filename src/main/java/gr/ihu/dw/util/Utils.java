@@ -3,6 +3,8 @@ package gr.ihu.dw.util;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
@@ -16,8 +18,9 @@ import java.util.TimeZone;
 public class Utils {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
+    private static final Logger logger = LoggerFactory.getLogger(Utils.class);
 
-    public static String convertKeyToHex(Key key) throws Exception {
+    public static String convertKeyToHex(Key key) {
         byte[] encodedKey = key.getEncoded();
         return bytesToHex(encodedKey);
     }
@@ -43,7 +46,7 @@ public class Utils {
         try {
             ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
             MatrixToImageWriter.writeToStream(
-                    new MultiFormatWriter().encode(qrCodeData, BarcodeFormat.QR_CODE, width, width),
+                    new MultiFormatWriter().encode(qrCodeData, BarcodeFormat.QR_CODE, width, height),
                     "PNG",
                     byteArray
             );
@@ -54,7 +57,7 @@ public class Utils {
 
             return new String(base64Bytes, StandardCharsets.UTF_8);
         } catch (Exception e) {
-            // logger.info(String.format("Could not generate base64 QRcode: %s", e.getMessage()));
+             logger.info(String.format("Could not generate base64 QRcode: %s", e.getMessage()));
             return null;
         }
     }
